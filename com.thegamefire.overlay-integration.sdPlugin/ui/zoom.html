@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Overlay Toggle Settings</title>
+    <meta charset="utf-8"/>
+    <script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+</head>
+
+<body>
+<!--
+    Learn more about property inspector components at https://sdpi-components.dev/docs/components
+-->
+<sdpi-item label="Page">
+    <sdpi-select setting="pageIndex" datasource="getPageNames" loading="Getting Pages" hot-reload
+                 showlabels></sdpi-select>
+</sdpi-item>
+<sdpi-item label="Number of Pixels to Expand">
+    <sdpi-textfield
+        setting="zoomFactor"
+        pattern="/^-?[0-9]*$/"
+        value="10"
+        ></sdpi-textfield>
+</sdpi-item>
+</body>
+
+</html>

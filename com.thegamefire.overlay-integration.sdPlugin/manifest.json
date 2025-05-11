@@ -1,0 +1,127 @@
+{
+	"Name": "Overlay Integration",
+	"Version": "0.1.0.0",
+	"Author": "The game fire",
+	"Actions": [
+		{
+			"Name": "Open Config",
+			"UUID": "com.thegamefire.overlay-integration.openconfig",
+			"Icon": "imgs/actions/config/config-icon",
+			"Tooltip": "Opens the Config App of the Overlay",
+			"PropertyInspectorPath": "ui/open-config.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/config/config-key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Toggle Overlay",
+			"UUID": "com.thegamefire.overlay-integration.toggleoverlay",
+			"Icon": "imgs/actions/toggle/window-icon",
+			"Tooltip": "Toggles whether an overlay element is shown",
+			"PropertyInspectorPath": "ui/overlay-toggle.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle/window-key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Change Opacity",
+			"UUID": "com.thegamefire.overlay-integration.changeopacity",
+			"Icon": "imgs/actions/opacity/opacity-icon",
+			"Tooltip": "Changes the opacity of an overlay element with a specified factor",
+			"PropertyInspectorPath": "ui/change-opacity.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/opacity/opacity-key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Move Element To",
+			"UUID": "com.thegamefire.overlay-integration.moveto",
+			"Icon": "imgs/actions/move/move-icon",
+			"Tooltip": "Moves an element to a specified location",
+			"PropertyInspectorPath": "ui/move-to.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/move/move-key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Move Element",
+			"UUID": "com.thegamefire.overlay-integration.movewith",
+			"Icon": "imgs/actions/move/move-icon",
+			"Tooltip": "Moves an element in a specified direction with a specified factor",
+			"PropertyInspectorPath": "ui/move-with.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/move/move-key",
+					"TitleAlignment": "middle"
+				}
+			]
+		},
+		{
+			"Name": "Expand Element",
+			"UUID": "com.thegamefire.overlay-integration.zoom",
+			"Icon": "imgs/actions/zoom/zoom-icon",
+			"Tooltip": "Expands an element in both width and height with a specified factor",
+			"PropertyInspectorPath": "ui/zoom.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/zoom/zoom-plus",
+					"TitleAlignment": "middle"
+				}
+			]
+		}
+	],
+	"Category": "Overlay Integration",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Integration with browser overlay application",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.4"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "10.15"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "com.thegamefire.overlay-integration"
+}

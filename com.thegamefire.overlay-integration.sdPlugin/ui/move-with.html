@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <title>Move To Settings</title>
+    <meta charset="utf-8"/>
+    <script src="https://sdpi-components.dev/releases/v3/sdpi-components.js"></script>
+</head>
+
+<body>
+<!--
+    Learn more about property inspector components at https://sdpi-components.dev/docs/components
+-->
+<sdpi-item label="Page">
+    <sdpi-select setting="pageIndex" datasource="getPageNames" loading="Getting Pages" hot-reload
+                 showlabels></sdpi-select>
+</sdpi-item>
+
+<sdpi-item  label="Direction">
+<sdpi-select setting="direction">
+    <option value="up">Up</option>
+    <option value="down">Down</option>
+    <option value="left">Left</option>
+    <option value="right">Right</option>
+</sdpi-select>
+</sdpi-item>
+
+<sdpi-item label="Number of Pixels">
+    <sdpi-textfield
+    setting="factor"
+    pattern="/^[0-9]*$/"
+    value="0"
+    ></sdpi-textfield>
+</sdpi-item>
+
+</body>
+
+</html>

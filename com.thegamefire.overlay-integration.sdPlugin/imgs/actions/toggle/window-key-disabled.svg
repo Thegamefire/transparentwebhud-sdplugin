@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 800 800">
+  <defs>
+    <style>
+      .cls-1 {
+        display: none;
+        stroke-width: 66.7px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        fill: #fff;
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        stroke-width: 38px;
+      }
+    </style>
+    <linearGradient id="background-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ca4b19" />
+      <stop offset="100%" stop-color="#fcce03" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#background-gradient)"/>
+  
+  <g transform="scale(0.8) translate(100,100)">
+  <path class="cls-1" d="M400,265h.3M500,265h.3M600,265h.3M206.7,633.3h386.7c37.3,0,56,0,70.3-7.3,12.5-6.4,22.7-16.6,29.1-29.1,7.3-14.3,7.3-32.9,7.3-70.3v-253.3c0-37.3,0-56-7.3-70.3-6.4-12.5-16.6-22.7-29.1-29.1-14.3-7.3-32.9-7.3-70.3-7.3H206.7c-37.3,0-56,0-70.3,7.3-12.5,6.4-22.7,16.6-29.1,29.1-7.3,14.3-7.3,32.9-7.3,70.3v253.3c0,37.3,0,56,7.3,70.3,6.4,12.5,16.6,22.7,29.1,29.1,14.3,7.3,32.9,7.3,70.3,7.3Z"/>
+  <rect class="cls-3" x="95.4" y="287.3" width="600" height="23.7"/>
+  <circle class="cls-3" cx="486.9" cy="245.3" r="23.7"/>
+  <circle class="cls-3" cx="556.2" cy="245.3" r="23.7"/>
+  <circle class="cls-3" cx="625.7" cy="245.3" r="23.7"/>
+  <rect class="cls-2" x="100" y="166.7" width="602.8" height="466.8" rx="69.2" ry="69.2"/>
+  </g>
+  <circle cx="625" cy="225" r="70" stroke="#fff" stroke-width="15" fill="#dd5757"/>
+</svg>
