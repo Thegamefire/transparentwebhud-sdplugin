@@ -7,16 +7,23 @@ import streamDeck, {
     SingletonAction,
     WillAppearEvent
 } from "@elgato/streamdeck";
-import {wsManager} from "../plugin";
+import { WebSocketManager } from "../webhud-websocket";
 
 
 @action({UUID: "com.thegamefire.overlay-integration.changeopacity"})
 export class ChangeOpacity extends SingletonAction<OpacitySettings> {
 
+    private wsManager:WebSocketManager
+
+    constructor(wsManager:WebSocketManager) {
+        super()
+        this.wsManager = wsManager
+    }
+    
     override async onSendToPlugin(ev: SendToPluginEvent<JsonObject, OpacitySettings>): Promise<void> {
         streamDeck.logger.debug("plugin received event")
         if (ev.payload?.event == "getPageNames") {
-            let pageNames: any = await wsManager.sendMessage("get page names", {})
+            let pageNames: any = await this.wsManager.sendMessage("get page names", {})
             pageNames = pageNames ? pageNames : [];
             streamDeck.logger.debug("received pages: " + pageNames.toString())
             let itemList = []
@@ -37,13 +44,13 @@ export class ChangeOpacity extends SingletonAction<OpacitySettings> {
     }
 
     override async onDidReceiveSettings(ev: DidReceiveSettingsEvent<OpacitySettings>): Promise<void> {
-        wsManager.removeDataListener(ev.action)
-        wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
+        this.wsManager.removeDataListener(ev.action)
+        this.wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
         this.updateImage(ev, null);
     }
     override async onWillAppear(ev: WillAppearEvent<OpacitySettings>): Promise<void> {
-        wsManager.removeDataListener(ev.action);
-        wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
+        this.wsManager.removeDataListener(ev.action);
+        this.wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
         this.updateImage(ev, null);
     }
 
@@ -56,14 +63,14 @@ export class ChangeOpacity extends SingletonAction<OpacitySettings> {
             opacityDiff: opacityDiff
         }
 
-        wsManager.sendMessage("change opacity", args)
+        this.wsManager.sendMessage("change opacity", args)
         this.updateImage(ev, null);
     }
 
     private async updateImage(ev:any, pageData: null | PageData): Promise<void> {
         if (ev.payload.settings.isSliderButton) {
             if (pageData == null) {
-                pageData = (await wsManager.sendMessage("get page data", {
+                pageData = (await this.wsManager.sendMessage("get page data", {
                     pageIndex: ev.payload.settings.pageIndex
                 })) as PageData;
             }

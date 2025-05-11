@@ -1,5 +1,5 @@
 import streamDeck, { action, DidReceiveSettingsEvent, JsonObject, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
-import { wsManager } from "../plugin";
+import { WebSocketManager } from "../webhud-websocket";
 
 
 
@@ -8,9 +8,16 @@ import { wsManager } from "../plugin";
 export class Zoom extends SingletonAction<ZoomSettings> {
 
 
+    private wsManager:WebSocketManager
+
+    constructor(wsManager:WebSocketManager) {
+        super()
+        this.wsManager = wsManager
+    }
+
     override async onSendToPlugin(ev: SendToPluginEvent<JsonObject, ZoomSettings>): Promise<void> {
         if (ev.payload?.event == "getPageNames") {
-            let pageNames: any = await wsManager.sendMessage("get page names", {})
+            let pageNames: any = await this.wsManager.sendMessage("get page names", {})
             pageNames = pageNames ? pageNames : [];
             let itemList = []
 
@@ -38,7 +45,7 @@ export class Zoom extends SingletonAction<ZoomSettings> {
     
 
     override async onKeyDown(ev: KeyDownEvent<ZoomSettings>): Promise<void> {
-        wsManager.sendMessage("resize window", {
+        this.wsManager.sendMessage("resize window", {
             pageIndex: ev.payload.settings.pageIndex,
             widthDiff: Number(ev.payload.settings.zoomFactor),
             heightDiff: Number(ev.payload.settings.zoomFactor)

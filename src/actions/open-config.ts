@@ -6,15 +6,23 @@ import streamDeck, {
     SingletonAction,
     WillAppearEvent
 } from "@elgato/streamdeck";
-import {wsManager} from "../plugin";
+import { WebSocketManager } from "../webhud-websocket";
 
 
 @action({UUID: "com.thegamefire.overlay-integration.openconfig"})
 export class OpenConfig extends SingletonAction<OpenConfigSettings> {
 
+
+    private wsManager:WebSocketManager
+
+    constructor(wsManager:WebSocketManager) {
+        super()
+        this.wsManager = wsManager
+    }
+
     override async onKeyDown(ev: KeyDownEvent<OpenConfigSettings>): Promise<void> {
 
-        wsManager.sendMessage("open config", {})
+        this.wsManager.sendMessage("open config", {})
 
     }
 

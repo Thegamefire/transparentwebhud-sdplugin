@@ -7,16 +7,24 @@ import streamDeck, {
     SingletonAction,
     WillAppearEvent,
 } from "@elgato/streamdeck";
-import {wsManager} from "../plugin";
+import { WebSocketManager } from "../webhud-websocket";
 
 
 @action({UUID: "com.thegamefire.overlay-integration.movewith"})
 export class MoveWith extends SingletonAction<MoveWithSettings> {
 
+
+    private wsManager:WebSocketManager
+
+    constructor(wsManager:WebSocketManager) {
+        super()
+        this.wsManager = wsManager
+    }
+
     override async onSendToPlugin(ev: SendToPluginEvent<JsonObject, MoveWithSettings
     >): Promise<void> {
         if (ev.payload?.event == "getPageNames") {
-            let pageNames: any = await wsManager.sendMessage("get page names", {})
+            let pageNames: any = await this.wsManager.sendMessage("get page names", {})
             pageNames = pageNames ? pageNames : [];
             let itemList = []
 
@@ -64,7 +72,7 @@ export class MoveWith extends SingletonAction<MoveWithSettings> {
                 break;
             }
         }
-        wsManager.sendMessage("move", {
+        this.wsManager.sendMessage("move", {
             pageIndex: ev.payload.settings.pageIndex,
             xDiff: xDiff,
             yDiff: yDiff,

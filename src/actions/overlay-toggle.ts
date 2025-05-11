@@ -7,15 +7,22 @@ import streamDeck, {
     SingletonAction,
     WillAppearEvent
 } from "@elgato/streamdeck";
-import {wsManager} from "../plugin";
+import { WebSocketManager } from "../webhud-websocket";
 
 
 @action({UUID: "com.thegamefire.overlay-integration.toggleoverlay"})
 export class OverlayToggle extends SingletonAction<ToggleSettings> {
 
+    private wsManager:WebSocketManager
+
+    constructor(wsManager:WebSocketManager) {
+        super()
+        this.wsManager = wsManager
+    }
+
     override async onSendToPlugin(ev: SendToPluginEvent<JsonObject, ToggleSettings>): Promise<void> {
         if (ev.payload?.event == "getPageNames") {
-            let pageNames: any = await wsManager.sendMessage("get page names", {})
+            let pageNames: any = await this.wsManager.sendMessage("get page names", {})
             pageNames = pageNames ? pageNames : [];
             let itemList = []
 
@@ -35,19 +42,19 @@ export class OverlayToggle extends SingletonAction<ToggleSettings> {
     }
 
     override async onDidReceiveSettings(ev: DidReceiveSettingsEvent<ToggleSettings>): Promise<void> {
-        wsManager.removeDataListener(ev.action)
-        wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
+        this.wsManager.removeDataListener(ev.action)
+        this.wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
         this.updateImage(ev, null);
     }
     override async onWillAppear(ev: WillAppearEvent<ToggleSettings>): Promise<void> {
-        wsManager.removeDataListener(ev.action);
-        wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
+        this.wsManager.removeDataListener(ev.action);
+        this.wsManager.setOnReceiveData("page data", ev.action, (responseData)=>this.updateImage(ev, responseData))
         this.updateImage(ev, null);
     }
     
 
     override async onKeyDown(ev: KeyDownEvent<ToggleSettings>): Promise<void> {
-        wsManager.sendMessage("toggle HUD-element", {
+        this.wsManager.sendMessage("toggle HUD-element", {
             pageIndex: ev.payload.settings.pageIndex
         })
         this.updateImage(ev, null)
@@ -55,7 +62,7 @@ export class OverlayToggle extends SingletonAction<ToggleSettings> {
 
     private async updateImage(ev:any, pageData: null | PageData): Promise<void> {
         if (pageData == null) {
-            pageData = (await wsManager.sendMessage("get page data", {
+            pageData = (await this.wsManager.sendMessage("get page data", {
                 pageIndex: ev.payload.settings.pageIndex
             })) as PageData;
         }
